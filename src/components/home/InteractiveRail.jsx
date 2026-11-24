@@ -184,7 +184,9 @@ export const InteractiveRail = ({
               }, 70);
             }}
             style={{ x, willChange: 'transform' }}
-            className="flex items-start pl-6 sm:pl-16 md:justify-center md:pl-0 select-none"
+            className={`flex items-start pl-6 sm:pl-16 ${
+              products.length <= 5 ? 'md:justify-center md:pl-0' : 'md:pl-20'
+            } select-none`}
           >
             {products.map((product, idx) => {
               const isFlipped = flippedId === product.id;
@@ -249,7 +251,7 @@ export const InteractiveRail = ({
                         <img
                           src={defaultColor.frontImage}
                           alt={product.name}
-                          loading="eager"
+                          loading={idx < 6 ? 'eager' : 'lazy'}
                           decoding="async"
                           draggable={false}
                           className={`w-full h-full object-contain object-top select-none transition-opacity duration-200 ${

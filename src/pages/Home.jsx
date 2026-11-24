@@ -35,6 +35,7 @@ const BOUTIQUE_RAILS = [
 export const Home = () => {
   const [activeCategory, setActiveCategory] = useState('new-arrivals');
   const [viewMode, setViewMode] = useState('rail'); // 'rail' | 'grid'
+  const [showAllGrid, setShowAllGrid] = useState(false);
   const { wishlist } = useCart();
 
   // Filter products based on active category
@@ -137,7 +138,18 @@ export const Home = () => {
           </p>
         </div>
 
-        <ProductGrid products={PRODUCTS} />
+        <ProductGrid products={showAllGrid ? PRODUCTS : PRODUCTS.slice(0, 12)} />
+
+        {PRODUCTS.length > 12 && (
+          <div className="mt-10 text-center">
+            <button
+              onClick={() => setShowAllGrid(!showAllGrid)}
+              className="px-8 py-3 rounded-full border border-luxury-black text-xs font-semibold uppercase tracking-wider text-luxury-black hover:bg-luxury-black hover:text-white transition-colors"
+            >
+              {showAllGrid ? 'Show Less' : `Explore All ${PRODUCTS.length} Pieces`}
+            </button>
+          </div>
+        )}
       </section>
 
       {/* Saved Wishlist Section */}
