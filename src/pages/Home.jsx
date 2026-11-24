@@ -63,43 +63,6 @@ export const Home = () => {
         onSelectCategory={(id) => setActiveCategory(id)}
       />
 
-      {/* View Switcher Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-1 flex items-center justify-between gap-2">
-        <div className="flex items-center space-x-2">
-          <span className="text-[10px] font-mono tracking-widest uppercase text-luxury-muted hidden sm:inline">
-            VIEW:
-          </span>
-          <div className="inline-flex p-1 rounded-full bg-cream-100 border border-luxury-border/60">
-            <button
-              onClick={() => setViewMode('rail')}
-              className={`px-3 py-1 rounded-full text-[11px] sm:text-xs font-medium transition-all flex items-center space-x-1.5 whitespace-nowrap ${
-                viewMode === 'rail'
-                  ? 'bg-white text-luxury-black shadow-sm font-semibold'
-                  : 'text-luxury-muted hover:text-luxury-black'
-              }`}
-            >
-              <Compass className="w-3.5 h-3.5 flex-shrink-0" />
-              <span>2027 Rails</span>
-            </button>
-            <button
-              onClick={() => setViewMode('grid')}
-              className={`px-3 py-1 rounded-full text-[11px] sm:text-xs font-medium transition-all flex items-center space-x-1.5 whitespace-nowrap ${
-                viewMode === 'grid'
-                  ? 'bg-white text-luxury-black shadow-sm font-semibold'
-                  : 'text-luxury-muted hover:text-luxury-black'
-              }`}
-            >
-              <LayoutGrid className="w-3.5 h-3.5 flex-shrink-0" />
-              <span>Grid</span>
-            </button>
-          </div>
-        </div>
-
-        <div className="text-[11px] font-mono text-luxury-muted whitespace-nowrap">
-          {filteredProducts.length} PIECES
-        </div>
-      </div>
-
       {/* Main Product Discovery Area */}
       <AnimatePresence mode="wait">
         {viewMode === 'rail' ? (
@@ -192,6 +155,74 @@ export const Home = () => {
 
       {/* Editorial Storytelling Section */}
       <EditorialSection />
+
+      {/* Smart Bottom View Mode Switcher (Rails / Grid) */}
+      <div className="w-full py-6 flex justify-center md:hidden border-t border-luxury-border/40 bg-cream-50/40">
+        <div className="inline-flex p-1 rounded-full bg-white border border-luxury-border/80 shadow-subtle">
+          <button
+            onClick={() => {
+              setViewMode('rail');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 ${
+              viewMode === 'rail'
+                ? 'bg-luxury-black text-white shadow-sm font-semibold'
+                : 'text-luxury-muted hover:text-luxury-black'
+            }`}
+          >
+            <Compass className="w-3.5 h-3.5" />
+            <span>Showroom Rails</span>
+          </button>
+          <button
+            onClick={() => {
+              setViewMode('grid');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 ${
+              viewMode === 'grid'
+                ? 'bg-luxury-black text-white shadow-sm font-semibold'
+                : 'text-luxury-muted hover:text-luxury-black'
+            }`}
+          >
+            <LayoutGrid className="w-3.5 h-3.5" />
+            <span>Catalog Grid</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Desktop Floating Bottom-Right Glass View Switcher */}
+      <div className="hidden md:flex fixed bottom-6 right-6 z-30">
+        <div className="inline-flex p-1 rounded-full glass-sheet border border-luxury-border/90 shadow-float">
+          <button
+            onClick={() => {
+              setViewMode('rail');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 ${
+              viewMode === 'rail'
+                ? 'bg-luxury-black text-white shadow-sm font-semibold'
+                : 'text-luxury-muted hover:text-luxury-black'
+            }`}
+          >
+            <Compass className="w-3.5 h-3.5" />
+            <span>Rails</span>
+          </button>
+          <button
+            onClick={() => {
+              setViewMode('grid');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 ${
+              viewMode === 'grid'
+                ? 'bg-luxury-black text-white shadow-sm font-semibold'
+                : 'text-luxury-muted hover:text-luxury-black'
+            }`}
+          >
+            <LayoutGrid className="w-3.5 h-3.5" />
+            <span>Grid</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
