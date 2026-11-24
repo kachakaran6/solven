@@ -4,35 +4,35 @@ export const CATEGORIES = [
     name: 'All Rails',
     badge: 'DROP 07',
     image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop',
-    activeCount: 20
+    activeCount: 68
   },
   {
     id: 'hoodies',
     name: 'Hoodies',
-    badge: '480GSM',
+    badge: '16 PCS',
     image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=600&auto=format&fit=crop',
-    activeCount: 5
+    activeCount: 16
   },
   {
     id: 'ladies-tops',
     name: 'Ladies Tops',
-    badge: 'WOMEN',
+    badge: '16 PCS',
     image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop',
-    activeCount: 4
+    activeCount: 16
   },
   {
     id: 'baggy-jeans',
     name: 'Baggy Jeans',
-    badge: 'DENIM',
+    badge: '16 PCS',
     image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?q=80&w=600&auto=format&fit=crop',
-    activeCount: 4
+    activeCount: 16
   },
   {
     id: 'formal-shirts',
     name: 'Formal Shirts',
-    badge: 'TAILORED',
+    badge: '16 PCS',
     image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=600&auto=format&fit=crop',
-    activeCount: 4
+    activeCount: 16
   },
   {
     id: 'streetwear',
@@ -46,6 +46,6 @@ export const CATEGORIES = [
     name: 'Trending',
     badge: 'POPULAR',
     image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=600&auto=format&fit=crop',
-    activeCount: 10
+    activeCount: 24
   }
 ];

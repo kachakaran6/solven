@@ -1,568 +1,196 @@
+// SOLVEN Full Catalog — 68 Curated Garments across 4 Showroom Rails + Atelier Streetwear
+
+const makeHoodie = (idx, id, name, tagline, price, origPrice, colorName, hex, img, tone = 'dark-walnut', trending = false) => ({
+  id,
+  code: `${String(idx).padStart(2, '0')} / 16`,
+  name,
+  tagline,
+  category: 'hoodies',
+  categoryName: 'Hoodies',
+  price,
+  originalPrice: origPrice,
+  rating: 4.8 + (idx % 3) * 0.1,
+  reviewsCount: 42 + idx * 11,
+  isNew: idx <= 6,
+  isTrending: trending,
+  description: `${name} crafted from custom-milled 480GSM organic loopback French terry. Engineered with architectural drop shoulders, double-layered structured hood, and enzyme-washed tactile finish.`,
+  details: [
+    { label: 'Material', value: '100% Organic French Terry Cotton (480 GSM)' },
+    { label: 'Fit', value: 'Oversized Boxy Silhouette, dropped shoulders' },
+    { label: 'Finishing', value: 'Enzyme soft-wash with reinforced ribbing' },
+    { label: 'Origin', value: 'Crafted in Portugal' },
+  ],
+  sizes: ['S', 'M', 'L', 'XL'],
+  availableSizes: ['S', 'M', 'L', 'XL'],
+  colors: [{ id: id, name: colorName, hex, frontImage: `/garments/${img}`, backImage: `/garments/${img}` }],
+  defaultColorIndex: 0,
+  hangerTone: tone,
+});
+
+const makeLadiesTop = (idx, id, name, tagline, price, origPrice, colorName, hex, img, fabric, tone = 'natural-oak', trending = false) => ({
+  id,
+  code: `${String(idx).padStart(2, '0')} / 16`,
+  name,
+  tagline,
+  category: 'ladies-tops',
+  categoryName: 'Ladies Tops',
+  price,
+  originalPrice: origPrice,
+  rating: 4.8 + (idx % 3) * 0.1,
+  reviewsCount: 38 + idx * 9,
+  isNew: idx <= 6,
+  isTrending: trending,
+  description: `${name} tailored for effortless feminine movement and architectural poise. Cut in small-batch atelier runs with luxury ${fabric.toLowerCase()} and precision seamwork.`,
+  details: [
+    { label: 'Material', value: fabric },
+    { label: 'Fit', value: 'Sculpted contemporary atelier drape' },
+    { label: 'Care', value: 'Gentle cold wash or specialist dry clean' },
+    { label: 'Origin', value: 'Crafted in Milan, Italy' },
+  ],
+  sizes: ['XS', 'S', 'M', 'L'],
+  availableSizes: ['XS', 'S', 'M', 'L'],
+  colors: [{ id: id, name: colorName, hex, frontImage: `/garments/${img}`, backImage: `/garments/${img}` }],
+  defaultColorIndex: 0,
+  hangerTone: tone,
+});
+
+const makeBaggyJeans = (idx, id, name, tagline, price, origPrice, colorName, hex, img, denimSpec, tone = 'dark-walnut', trending = false) => ({
+  id,
+  code: `${String(idx).padStart(2, '0')} / 16`,
+  name,
+  tagline,
+  category: 'baggy-jeans',
+  categoryName: 'Baggy Jeans',
+  price,
+  originalPrice: origPrice,
+  rating: 4.8 + (idx % 3) * 0.1,
+  reviewsCount: 51 + idx * 8,
+  isNew: idx <= 6,
+  isTrending: trending,
+  description: `${name} cut in a generous wide-leg street silhouette from ${denimSpec}. Designed for natural hem stacking with custom brushed-metal SOLVEN hardware.`,
+  details: [
+    { label: 'Denim', value: denimSpec },
+    { label: 'Fit', value: 'Relaxed wide-leg baggy cut' },
+    { label: 'Hardware', value: 'Custom engraved brushed rivets' },
+    { label: 'Origin', value: 'Crafted in Okayama, Japan' },
+  ],
+  sizes: ['28', '30', '32', '34'],
+  availableSizes: ['28', '30', '32', '34'],
+  colors: [{ id: id, name: colorName, hex, frontImage: `/garments/${img}`, backImage: `/garments/${img}` }],
+  defaultColorIndex: 0,
+  hangerTone: tone,
+});
+
+const makeFormalShirt = (idx, id, name, tagline, price, origPrice, colorName, hex, img, fabricSpec, tone = 'natural-oak', trending = false) => ({
+  id,
+  code: `${String(idx).padStart(2, '0')} / 16`,
+  name,
+  tagline,
+  category: 'formal-shirts',
+  categoryName: 'Formal Shirts',
+  price,
+  originalPrice: origPrice,
+  rating: 4.8 + (idx % 3) * 0.1,
+  reviewsCount: 44 + idx * 10,
+  isNew: idx <= 6,
+  isTrending: trending,
+  description: `${name} tailored with single-needle precision (22 stitches per inch) from ${fabricSpec}. Finished with genuine mother-of-pearl buttons and structured collar stays.`,
+  details: [
+    { label: 'Fabric', value: fabricSpec },
+    { label: 'Buttons', value: 'Australian Mother-of-Pearl' },
+    { label: 'Fit', value: 'Modern tailored silhouette' },
+    { label: 'Origin', value: 'Crafted in Como, Italy' },
+  ],
+  sizes: ['S', 'M', 'L', 'XL'],
+  availableSizes: ['S', 'M', 'L', 'XL'],
+  colors: [{ id: id, name: colorName, hex, frontImage: `/garments/${img}`, backImage: `/garments/${img}` }],
+  defaultColorIndex: 0,
+  hangerTone: tone,
+});
+
 export const PRODUCTS = [
   // ==========================================
-  // RAIL 1: HEAVYWEIGHT HOODIES
+  // RAIL 1: HEAVYWEIGHT HOODIES & SWEATS (16)
   // ==========================================
-  {
-    id: 'hoodie-atheist-grey',
-    code: '01 / 04',
-    name: 'Heavyweight Graphic Hoodie',
-    tagline: "THANK GOD I'M AN ATHEIST",
-    category: 'hoodies',
-    categoryName: 'Hoodies',
-    price: 4999,
-    originalPrice: 5999,
-    rating: 4.9,
-    reviewsCount: 128,
-    isNew: true,
-    isTrending: true,
-    description: 'Constructed from custom-developed 480GSM loopback French terry cotton. Engineered with exaggerated drop shoulders, a double-layered hood without drawstrings for architectural structure, and our signature 2027 typographic print.',
-    details: [
-      { label: 'Material', value: '100% Organic French Terry Cotton (480 GSM)' },
-      { label: 'Fit', value: 'Oversized Boxy Silhouette, dropped shoulders' },
-      { label: 'Finishing', value: 'Vintage enzyme wash with distressed ribbing' },
-      { label: 'Origin', value: 'Crafted in Portugal' }
-    ],
-    sizes: ['S', 'M', 'L', 'XL'],
-    availableSizes: ['S', 'M', 'L', 'XL'],
-    colors: [
-      {
-        id: 'heather-grey',
-        name: 'Heather Ash Grey',
-        hex: '#9A9CA1',
-        frontImage: '/garments/hoodie-grey.webp',
-        backImage: '/garments/hoodie-grey.webp',
-      },
-      {
-        id: 'midnight-black',
-        name: 'Midnight Obsidian',
-        hex: '#161616',
-        frontImage: '/garments/hoodie-black.webp',
-        backImage: '/garments/hoodie-black.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'dark-walnut'
-  },
-  {
-    id: 'hoodie-obsidian-core',
-    code: '02 / 04',
-    name: 'Monolith Raw-Seam Hoodie',
-    tagline: 'HEAVY WEIGHT OBSIDIAN',
-    category: 'hoodies',
-    categoryName: 'Hoodies',
-    price: 4999,
-    originalPrice: null,
-    rating: 5.0,
-    reviewsCount: 210,
-    isNew: false,
-    isTrending: true,
-    description: 'The definitive luxury basic. Clean silhouette with concealed side welt pockets, seamless hem, and tonal embroidered micro-monogram on the left wrist cuff.',
-    details: [
-      { label: 'Material', value: '100% Suvin Cotton (500 GSM)' },
-      { label: 'Fit', value: 'True boxy fit with structured hood' },
-      { label: 'Details', value: 'Concealed YKK zippered side pockets' },
-      { label: 'Origin', value: 'Crafted in Japan' }
-    ],
-    sizes: ['S', 'M', 'L', 'XL'],
-    availableSizes: ['S', 'M', 'L', 'XL'],
-    colors: [
-      {
-        id: 'pitch-black',
-        name: 'Pitch Black',
-        hex: '#141414',
-        frontImage: '/garments/hoodie-black.webp',
-        backImage: '/garments/hoodie-black.webp',
-      },
-      {
-        id: 'charcoal-mineral',
-        name: 'Mineral Graphite',
-        hex: '#373A3C',
-        frontImage: '/garments/hoodie-grey.webp',
-        backImage: '/garments/hoodie-grey.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'dark-walnut'
-  },
-  {
-    id: 'pullover-oat-sand',
-    code: '03 / 04',
-    name: 'Architectural Oat Hoodie',
-    tagline: 'BRUSHED FLEECE LUXURY',
-    category: 'hoodies',
-    categoryName: 'Hoodies',
-    price: 5499,
-    originalPrice: 6299,
-    rating: 4.7,
-    reviewsCount: 78,
-    isNew: true,
-    isTrending: false,
-    description: 'Features a sculpted kimono sleeve construction that eliminates shoulder seams for uninterrupted drape. Ultra-soft brushed interior with thermal retention.',
-    details: [
-      { label: 'Material', value: '80% Supima Cotton, 20% Cashmere blend' },
-      { label: 'Sleeve', value: 'One-piece raglan ergonomic cut' },
-      { label: 'Origin', value: 'Crafted in Portugal' }
-    ],
-    sizes: ['S', 'M', 'L', 'XL'],
-    availableSizes: ['M', 'L', 'XL'],
-    colors: [
-      {
-        id: 'oat-milk',
-        name: 'Raw Oat Milk',
-        hex: '#E5DFD3',
-        frontImage: '/garments/pullover-oat.webp',
-        backImage: '/garments/pullover-oat.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'natural-oak'
-  },
-  {
-    id: 'sweatshirt-plus-moss',
-    code: '04 / 04',
-    name: 'Sweatshirt Plus — Forest Wash',
-    tagline: 'ESSENTIAL MINIMALIST CREW',
-    category: 'hoodies',
-    categoryName: 'Hoodies',
-    price: 4499,
-    originalPrice: 4999,
-    rating: 4.8,
-    reviewsCount: 94,
-    isNew: true,
-    isTrending: false,
-    description: 'A relaxed crewneck sweater sculpted with reverse flatlock stitching and reinforced collar binding. Finished with pigment garment dye for a subtle patina.',
-    details: [
-      { label: 'Material', value: '440 GSM Organic Loopback Cotton' },
-      { label: 'Fit', value: 'Relaxed athletic drape' },
-      { label: 'Origin', value: 'Crafted in Italy' }
-    ],
-    sizes: ['S', 'M', 'L', 'XL'],
-    availableSizes: ['S', 'M', 'L', 'XL'],
-    colors: [
-      {
-        id: 'deep-moss',
-        name: 'Deep Pine Moss',
-        hex: '#2E3D34',
-        frontImage: '/garments/sweatshirt-moss.webp',
-        backImage: '/garments/sweatshirt-moss.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'natural-oak'
-  },
+  makeHoodie(1, 'hoodie-atheist-grey', 'Heavyweight Graphic Hoodie', "THANK GOD I'M AN ATHEIST", 4999, 5999, 'Heather Ash Grey', '#9A9CA1', 'hoodie-grey.webp', 'dark-walnut', true),
+  makeHoodie(2, 'hoodie-obsidian-core', 'Monolith Raw-Seam Hoodie', 'HEAVY WEIGHT OBSIDIAN', 4999, null, 'Pitch Black', '#141414', 'hoodie-black.webp', 'dark-walnut', true),
+  makeHoodie(3, 'pullover-oat-sand', 'Architectural Oat Hoodie', 'BRUSHED FLEECE LUXURY', 5499, 6299, 'Raw Oat Milk', '#E5DFD3', 'pullover-oat.webp', 'natural-oak', true),
+  makeHoodie(4, 'sweatshirt-plus-moss', 'Sweatshirt Plus — Forest Wash', 'ESSENTIAL MINIMALIST CREW', 4499, 4999, 'Deep Pine Moss', '#2E3D34', 'sweatshirt-moss.webp', 'natural-oak', false),
+  makeHoodie(5, 'hoodie-espresso', 'Espresso Loopback Hoodie', '480GSM ROASTED UMBER', 5199, 5899, 'Roasted Espresso', '#523A2E', 'hoodie-espresso.webp', 'dark-walnut', true),
+  makeHoodie(6, 'hoodie-burgundy', 'Atelier Burgundy Box Hoodie', 'GARMENT-DYED MERLOT', 5299, null, 'Deep Burgundy', '#69222E', 'hoodie-burgundy.webp', 'natural-oak', true),
+  makeHoodie(7, 'hoodie-navy', 'Midnight Navy Core Hoodie', 'SUVIN LOOPWHEEL FLEECE', 4999, null, 'Midnight Navy', '#243452', 'hoodie-navy.webp', 'dark-walnut', false),
+  makeHoodie(8, 'hoodie-charcoal', 'Mineral Charcoal Hoodie', 'ENZYME-WASHED SLATE', 4899, 5499, 'Mineral Charcoal', '#40444A', 'hoodie-charcoal.webp', 'natural-oak', false),
+  makeHoodie(9, 'hoodie-olive', 'Sage Olive Tactical Hoodie', 'HEAVYWEIGHT CAPSULE', 5199, null, 'Muted Olive', '#586248', 'hoodie-olive.webp', 'dark-walnut', true),
+  makeHoodie(10, 'hoodie-terracotta', 'Terracotta Clay Hoodie', 'SUN-FADED PIGMENT DYE', 5399, 5999, 'Terracotta Clay', '#A6563E', 'hoodie-terracotta.webp', 'natural-oak', true),
+  makeHoodie(11, 'hoodie-cobalt', 'Cobalt Ink Studio Hoodie', 'DROP-SHOULDER SILHOUETTE', 4999, null, 'Cobalt Ink', '#2A4E94', 'hoodie-cobalt.webp', 'dark-walnut', false),
+  makeHoodie(12, 'hoodie-plum', 'Plum Noir Archival Hoodie', 'LIMITED EDITION BATCH', 5499, null, 'Plum Noir', '#56304E', 'hoodie-plum.webp', 'natural-oak', false),
+  makeHoodie(13, 'sweatshirt-slate', 'Slate Blue Oversized Crew', '440GSM REVERSE WEAVE', 4299, 4799, 'Slate Blue', '#60768A', 'sweatshirt-slate.webp', 'natural-oak', false),
+  makeHoodie(14, 'sweatshirt-wine', 'Bordeaux Pigment Crewneck', 'COLD-DYED COTTON', 4399, null, 'Bordeaux Wine', '#802A36', 'sweatshirt-wine.webp', 'dark-walnut', true),
+  makeHoodie(15, 'sweatshirt-sand', 'Sandstone Brushed Crewneck', 'RAW UNBLEACHED TONE', 4199, 4699, 'Warm Sandstone', '#CDBCA2', 'sweatshirt-sand.webp', 'natural-oak', false),
+  makeHoodie(16, 'sweatshirt-ink', 'Deep Ink Minimalist Crew', 'STRUCTURED RIB COLLAR', 4499, null, 'Deep Ink', '#222A3E', 'sweatshirt-ink.webp', 'dark-walnut', false),
 
   // ==========================================
-  // RAIL 2: LADIES TOPS
+  // RAIL 2: LADIES TOPS (16)
   // ==========================================
-  {
-    id: 'ladies-knit-cream',
-    code: '01 / 04',
-    name: 'Asymmetric Ribbed Knit Top',
-    tagline: 'SCULPTED OFF-SHOULDER',
-    category: 'ladies-tops',
-    categoryName: 'Ladies Tops',
-    price: 3499,
-    originalPrice: 3999,
-    rating: 4.9,
-    reviewsCount: 64,
-    isNew: true,
-    isTrending: true,
-    description: 'Fine-gauge Italian merino and viscose blend knitted in a flattering asymmetric off-shoulder silhouette. Soft ribbed texture hugs with effortless fluidity.',
-    details: [
-      { label: 'Material', value: '70% Extra-Fine Merino, 30% Silk Viscose' },
-      { label: 'Neckline', value: 'Asymmetric draped off-shoulder fold' },
-      { label: 'Origin', value: 'Crafted in Milan, Italy' }
-    ],
-    sizes: ['XS', 'S', 'M', 'L'],
-    availableSizes: ['XS', 'S', 'M', 'L'],
-    colors: [
-      {
-        id: 'ivory-cream',
-        name: 'Ivory Cream',
-        hex: '#F3EFE6',
-        frontImage: '/garments/ladies-knit-cream.webp',
-        backImage: '/garments/ladies-knit-cream.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'natural-oak'
-  },
-  {
-    id: 'ladies-corset-black',
-    code: '02 / 04',
-    name: 'Structured Atelier Corset Top',
-    tagline: 'ARCHITECTURAL BONED SILHOUETTE',
-    category: 'ladies-tops',
-    categoryName: 'Ladies Tops',
-    price: 4299,
-    originalPrice: null,
-    rating: 5.0,
-    reviewsCount: 112,
-    isNew: true,
-    isTrending: true,
-    description: 'Precision-tailored cropped corset top featuring clean vertical princess seams, concealed rear zip closure, and flexible matte boning for sculptural support.',
-    details: [
-      { label: 'Material', value: 'Japanese Double-Weave Triacetate' },
-      { label: 'Structure', value: 'Internal flexible couture boning' },
-      { label: 'Origin', value: 'Crafted in Paris, France' }
-    ],
-    sizes: ['XS', 'S', 'M', 'L'],
-    availableSizes: ['XS', 'S', 'M', 'L'],
-    colors: [
-      {
-        id: 'onyx-black',
-        name: 'Onyx Black',
-        hex: '#141414',
-        frontImage: '/garments/ladies-corset-black.webp',
-        backImage: '/garments/ladies-corset-black.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'dark-walnut'
-  },
-  {
-    id: 'ladies-silk-champagne',
-    code: '03 / 04',
-    name: 'Champagne Silk Draped Blouse',
-    tagline: '100% MULBERRY SILK SATIN',
-    category: 'ladies-tops',
-    categoryName: 'Ladies Tops',
-    price: 5799,
-    originalPrice: 6499,
-    rating: 4.8,
-    reviewsCount: 53,
-    isNew: true,
-    isTrending: false,
-    description: 'Cut on the bias from heavy 22-momme mulberry silk satin. Features a liquid cowl neckline and elongated French-cuff sleeves for luminous evening drape.',
-    details: [
-      { label: 'Material', value: '100% 22-Momme Mulberry Silk' },
-      { label: 'Cut', value: 'Bias-cut fluid cowl drape' },
-      { label: 'Origin', value: 'Crafted in Como, Italy' }
-    ],
-    sizes: ['XS', 'S', 'M', 'L'],
-    availableSizes: ['S', 'M', 'L'],
-    colors: [
-      {
-        id: 'champagne-gold',
-        name: 'Champagne Satin',
-        hex: '#E6D6BE',
-        frontImage: '/garments/ladies-silk-champagne.webp',
-        backImage: '/garments/ladies-silk-champagne.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'natural-oak'
-  },
-  {
-    id: 'ladies-halter-sage',
-    code: '04 / 04',
-    name: 'Sculpted Halter Neck Top',
-    tagline: 'MINIMALIST SAGE JERSEY',
-    category: 'ladies-tops',
-    categoryName: 'Ladies Tops',
-    price: 2499,
-    originalPrice: null,
-    rating: 4.7,
-    reviewsCount: 41,
-    isNew: false,
-    isTrending: true,
-    description: 'Clean high-neck halter top engineered from double-layered modal-elastane compact jersey with raw clean-cut edges and seamless neckline finishing.',
-    details: [
-      { label: 'Material', value: 'Double-layer Modal Compact Jersey' },
-      { label: 'Fit', value: 'Second-skin contoured fit' },
-      { label: 'Origin', value: 'Crafted in Portugal' }
-    ],
-    sizes: ['XS', 'S', 'M', 'L'],
-    availableSizes: ['XS', 'S', 'M', 'L'],
-    colors: [
-      {
-        id: 'sage-olive',
-        name: 'Sage Olive',
-        hex: '#6E7967',
-        frontImage: '/garments/ladies-halter-sage.webp',
-        backImage: '/garments/ladies-halter-sage.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'dark-walnut'
-  },
+  makeLadiesTop(1, 'ladies-knit-cream', 'Asymmetric Ribbed Knit Top', 'SCULPTED OFF-SHOULDER', 3499, 3999, 'Ivory Cream', '#F3EFE6', 'ladies-knit-cream.webp', '70% Extra-Fine Merino, 30% Silk', 'natural-oak', true),
+  makeLadiesTop(2, 'ladies-corset-black', 'Structured Atelier Corset Top', 'ARCHITECTURAL BONED', 4299, null, 'Onyx Black', '#141414', 'ladies-corset-black.webp', 'Japanese Double-Weave Triacetate', 'dark-walnut', true),
+  makeLadiesTop(3, 'ladies-silk-champagne', 'Champagne Silk Draped Blouse', '100% MULBERRY SILK SATIN', 5799, 6499, 'Champagne Satin', '#E6D6BE', 'ladies-silk-champagne.webp', '100% 22-Momme Mulberry Silk', 'natural-oak', true),
+  makeLadiesTop(4, 'ladies-halter-sage', 'Sculpted Halter Neck Top', 'MINIMALIST SAGE JERSEY', 2499, null, 'Sage Olive', '#6E7967', 'ladies-halter-sage.webp', 'Double-Layer Modal Jersey', 'dark-walnut', true),
+  makeLadiesTop(5, 'ladies-knit-espresso', 'Espresso Asymmetric Knit Top', 'MERINO RIBBED DRAPE', 3599, 4199, 'Espresso Brown', '#583C30', 'ladies-knit-espresso.webp', '70% Extra-Fine Merino, 30% Silk', 'natural-oak', false),
+  makeLadiesTop(6, 'ladies-silk-crimson', 'Crimson Bias-Cut Silk Blouse', 'EVENING COWL NECKLINE', 5999, null, 'Crimson Satin', '#8E2230', 'ladies-silk-crimson.webp', '100% 22-Momme Mulberry Silk', 'dark-walnut', true),
+  makeLadiesTop(7, 'ladies-corset-ruby', 'Ruby Couture Boned Corset', 'SCULPTED PRINCESS SEAMS', 4499, 4999, 'Ruby Velvet', '#872430', 'ladies-corset-ruby.webp', 'Structured Satin-Back Crepe', 'dark-walnut', true),
+  makeLadiesTop(8, 'ladies-knit-rose', 'Dusty Rose Off-Shoulder Knit', 'SOFT CASHMERE-MERINO', 3699, null, 'Dusty Rose', '#C48A8E', 'ladies-knit-rose.webp', 'Merino & Cashmere Rib Knit', 'natural-oak', false),
+  makeLadiesTop(9, 'ladies-silk-emerald', 'Emerald Satin Cowl Blouse', 'LIQUID SILK FINISH', 5799, 6299, 'Deep Emerald', '#22604A', 'ladies-silk-emerald.webp', '100% 22-Momme Mulberry Silk', 'dark-walnut', true),
+  makeLadiesTop(10, 'ladies-halter-mocha', 'Mocha Contoured Halter Top', 'SECOND-SKIN COMPACT KNIT', 2599, null, 'Warm Mocha', '#765644', 'ladies-halter-mocha.webp', 'Double-Layer Modal Jersey', 'natural-oak', false),
+  makeLadiesTop(11, 'ladies-corset-cobalt', 'Cobalt Structured Corset Top', 'ARCHITECTURAL EVENING', 4399, null, 'Cobalt Blue', '#2C488E', 'ladies-corset-cobalt.webp', 'Japanese Double-Weave Triacetate', 'dark-walnut', false),
+  makeLadiesTop(12, 'ladies-knit-slate', 'Slate Grey Asymmetric Knit', 'DRAPED COLD-SHOULDER', 3499, 3999, 'Slate Grey', '#707E8E', 'ladies-knit-slate.webp', '70% Extra-Fine Merino, 30% Silk', 'natural-oak', false),
+  makeLadiesTop(13, 'ladies-silk-pearl', 'Pearl White Silk Cowl Blouse', 'LUMINOUS BIAS DRAPE', 5699, null, 'Pearl White', '#DADCE0', 'ladies-silk-pearl.webp', '100% 22-Momme Mulberry Silk', 'natural-oak', true),
+  makeLadiesTop(14, 'ladies-halter-noir', 'Noir Minimalist Halter Top', 'CLEAN-CUT NECKLINE', 2499, 2899, 'Noir Black', '#2A2A2E', 'ladies-halter-noir.webp', 'Double-Layer Modal Jersey', 'dark-walnut', false),
+  makeLadiesTop(15, 'ladies-knit-olive', 'Olive Moss Ribbed Knit Top', 'ASYMMETRIC LONG SLEEVE', 3499, null, 'Olive Moss', '#6E7858', 'ladies-knit-olive.webp', '70% Extra-Fine Merino, 30% Silk', 'natural-oak', false),
+  makeLadiesTop(16, 'ladies-silk-navy', 'Midnight Navy Silk Blouse', 'FRENCH-CUFF SATIN', 5899, 6499, 'Midnight Navy', '#263456', 'ladies-silk-navy.webp', '100% 22-Momme Mulberry Silk', 'dark-walnut', false),
 
   // ==========================================
-  // RAIL 3: BAGGY JEANS & DENIM
+  // RAIL 3: BAGGY JEANS & DENIM (16)
   // ==========================================
-  {
-    id: 'jeans-lightwash',
-    code: '01 / 04',
-    name: 'Vintage Wash Baggy Denim',
-    tagline: '14OZ JAPANESE WIDE-LEG',
-    category: 'baggy-jeans',
-    categoryName: 'Baggy Jeans',
-    price: 4999,
-    originalPrice: 5799,
-    rating: 4.9,
-    reviewsCount: 156,
-    isNew: true,
-    isTrending: true,
-    description: 'Relaxed wide-leg skate silhouette washed with ozone enzymes for an authentic 90s vintage patina. Cut with generous thigh volume and subtle hem stacking.',
-    details: [
-      { label: 'Denim', value: '14oz Kurabo Mills Japanese Cotton' },
-      { label: 'Fit', value: 'Ultra-baggy wide leg' },
-      { label: 'Hardware', value: 'Brushed silver custom tack buttons' },
-      { label: 'Origin', value: 'Crafted in Okayama, Japan' }
-    ],
-    sizes: ['28', '30', '32', '34'],
-    availableSizes: ['28', '30', '32', '34'],
-    colors: [
-      {
-        id: 'vintage-blue',
-        name: 'Vintage Light Wash',
-        hex: '#8AA7C4',
-        frontImage: '/garments/jeans-lightwash.webp',
-        backImage: '/garments/jeans-lightwash.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'natural-oak'
-  },
-  {
-    id: 'jeans-indigo',
-    code: '02 / 04',
-    name: 'Raw Indigo Selvedge Baggy Jeans',
-    tagline: 'UNWASHED 15OZ SELVEDGE',
-    category: 'baggy-jeans',
-    categoryName: 'Baggy Jeans',
-    price: 5999,
-    originalPrice: null,
-    rating: 5.0,
-    reviewsCount: 89,
-    isNew: true,
-    isTrending: true,
-    description: 'Deep unwashed indigo rope-dyed selvedge denim with contrast tobacco stitching. Designed to mold and crease uniquely to the wearer over time.',
-    details: [
-      { label: 'Denim', value: '15oz Red-Line Selvedge Denim' },
-      { label: 'Fit', value: 'Wide straight architectural cut' },
-      { label: 'Origin', value: 'Crafted in Japan' }
-    ],
-    sizes: ['28', '30', '32', '34'],
-    availableSizes: ['28', '30', '32', '34'],
-    colors: [
-      {
-        id: 'raw-indigo',
-        name: 'Raw Indigo',
-        hex: '#1E2A44',
-        frontImage: '/garments/jeans-indigo.webp',
-        backImage: '/garments/jeans-indigo.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'dark-walnut'
-  },
-  {
-    id: 'jeans-charcoal',
-    code: '03 / 04',
-    name: 'Charcoal Carpenter Baggy Jeans',
-    tagline: 'DOUBLE-KNEE WORKWEAR DENIM',
-    category: 'baggy-jeans',
-    categoryName: 'Baggy Jeans',
-    price: 5499,
-    originalPrice: 6499,
-    rating: 4.8,
-    reviewsCount: 74,
-    isNew: true,
-    isTrending: false,
-    description: 'Heavyweight washed charcoal denim reinforced with tonal double-knee panels, utility hammer loop, and triple-needle felled seams.',
-    details: [
-      { label: 'Denim', value: '14.5oz Washed Bull Denim' },
-      { label: 'Details', value: 'Reinforced double-knee & utility pockets' },
-      { label: 'Origin', value: 'Crafted in Los Angeles' }
-    ],
-    sizes: ['28', '30', '32', '34'],
-    availableSizes: ['30', '32', '34'],
-    colors: [
-      {
-        id: 'washed-charcoal',
-        name: 'Washed Charcoal',
-        hex: '#3A3B3E',
-        frontImage: '/garments/jeans-charcoal.webp',
-        backImage: '/garments/jeans-charcoal.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'dark-walnut'
-  },
-  {
-    id: 'jeans-ecru',
-    code: '04 / 04',
-    name: 'Ecru Natural Skate Baggy Jeans',
-    tagline: 'UNBLEACHED ORGANIC COTTON',
-    category: 'baggy-jeans',
-    categoryName: 'Baggy Jeans',
-    price: 4699,
-    originalPrice: null,
-    rating: 4.7,
-    reviewsCount: 62,
-    isNew: false,
-    isTrending: true,
-    description: 'Cut from unbleached natural ecru organic twill retaining subtle cotton seed flecks. Effortless relaxed drape with clean tonal stitching.',
-    details: [
-      { label: 'Denim', value: '13.5oz Unbleached Organic Cotton' },
-      { label: 'Fit', value: 'Relaxed wide-leg skate fit' },
-      { label: 'Origin', value: 'Crafted in Portugal' }
-    ],
-    sizes: ['28', '30', '32', '34'],
-    availableSizes: ['28', '30', '32', '34'],
-    colors: [
-      {
-        id: 'ecru-white',
-        name: 'Natural Ecru',
-        hex: '#EDEAE0',
-        frontImage: '/garments/jeans-ecru.webp',
-        backImage: '/garments/jeans-ecru.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'natural-oak'
-  },
+  makeBaggyJeans(1, 'jeans-lightwash', 'Vintage Wash Baggy Denim', '14OZ JAPANESE WIDE-LEG', 4999, 5799, 'Vintage Light Wash', '#8AA7C4', 'jeans-lightwash.webp', '14oz Kurabo Japanese Cotton', 'natural-oak', true),
+  makeBaggyJeans(2, 'jeans-indigo', 'Raw Indigo Selvedge Baggy Jeans', 'UNWASHED 15OZ SELVEDGE', 5999, null, 'Raw Indigo', '#1E2A44', 'jeans-indigo.webp', '15oz Red-Line Selvedge Denim', 'dark-walnut', true),
+  makeBaggyJeans(3, 'jeans-charcoal', 'Charcoal Carpenter Baggy Jeans', 'DOUBLE-KNEE WORKWEAR', 5499, 6199, 'Washed Charcoal', '#3A3B3E', 'jeans-charcoal.webp', '14.5oz Washed Bull Denim', 'dark-walnut', true),
+  makeBaggyJeans(4, 'jeans-ecru', 'Ecru Natural Skate Baggy Jeans', 'UNBLEACHED ORGANIC', 4699, null, 'Natural Ecru', '#EDEAE0', 'jeans-ecru.webp', '13.5oz Unbleached Cotton', 'natural-oak', false),
+  makeBaggyJeans(5, 'jeans-iceblue', 'Ice Blue Fade Baggy Jeans', '90S STONE-WASHED WIDE', 4899, 5499, 'Ice Blue Fade', '#AFCADD', 'jeans-iceblue.webp', '14oz Stone-Washed Cotton', 'natural-oak', true),
+  makeBaggyJeans(6, 'jeans-jetblack', 'Jet Black Selvedge Baggy Jeans', 'OVERDYED RAW DENIM', 5899, null, 'Jet Black', '#2E3034', 'jeans-jetblack.webp', '15oz Overdyed Selvedge', 'dark-walnut', true),
+  makeBaggyJeans(7, 'jeans-sandstone', 'Sandstone Vintage Baggy Denim', 'DESERT ENZYME RINSE', 4999, null, 'Sandstone Wash', '#C4B298', 'jeans-sandstone.webp', '14oz Japanese Twill Denim', 'natural-oak', false),
+  makeBaggyJeans(8, 'jeans-olive-carpenter', 'Olive Carpenter Baggy Jeans', 'UTILITY DOUBLE-KNEE', 5499, 5999, 'Olive Drab', '#626C52', 'jeans-olive-carpenter.webp', '14.5oz Heavy Bull Denim', 'dark-walnut', true),
+  makeBaggyJeans(9, 'jeans-dustygrey', 'Dusty Grey Skate Baggy Jeans', 'DISTRESSED MINERAL WASH', 4899, null, 'Dusty Grey', '#91949A', 'jeans-dustygrey.webp', '14oz Mineral-Dyed Denim', 'natural-oak', false),
+  makeBaggyJeans(10, 'jeans-ocean', 'Deep Ocean Baggy Wide Denim', 'INDIGO RINSE WIDE-LEG', 5199, null, 'Deep Ocean', '#406694', 'jeans-ocean.webp', '14oz Kurabo Mills Denim', 'dark-walnut', false),
+  makeBaggyJeans(11, 'jeans-espresso', 'Espresso Overdyed Baggy Jeans', 'MUD-DYED JAPANESE DENIM', 5699, 6299, 'Espresso Overdye', '#624838', 'jeans-espresso.webp', '14.5oz Overdyed Selvedge', 'dark-walnut', true),
+  makeBaggyJeans(12, 'jeans-rust-carpenter', 'Rust Clay Carpenter Jeans', 'WORKWEAR WIDE PANEL', 5399, null, 'Rust Clay', '#845240', 'jeans-rust-carpenter.webp', '14.5oz Heavy Canvas Denim', 'natural-oak', false),
+  makeBaggyJeans(13, 'jeans-mocha-skate', 'Mocha Twill Baggy Skate Jeans', 'RELAXED ARCHITECTURAL', 4799, null, 'Warm Mocha', '#9E8670', 'jeans-mocha-skate.webp', '13.5oz Heavy Cotton Twill', 'natural-oak', false),
+  makeBaggyJeans(14, 'jeans-sage-skate', 'Sage Stone Baggy Skate Jeans', 'GARMENT-DYED TWILL', 4799, 5299, 'Sage Stone', '#8E9E8A', 'jeans-sage-skate.webp', '13.5oz Organic Twill', 'natural-oak', false),
+  makeBaggyJeans(15, 'jeans-slate-skate', 'Slate Blue Baggy Skate Jeans', 'SLOUCHED HEM STACK', 4999, null, 'Slate Blue', '#60768A', 'jeans-slate-skate.webp', '14oz Japanese Cotton Denim', 'dark-walnut', false),
+  makeBaggyJeans(16, 'jeans-cobalt-tint', 'Cobalt Tint Baggy Wide Jeans', 'ARCHIVAL INDIGO TINT', 5299, null, 'Cobalt Tint', '#4870A8', 'jeans-cobalt-tint.webp', '14oz Tinted Selvedge Denim', 'dark-walnut', true),
 
   // ==========================================
-  // RAIL 4: MEN'S FORMAL SHIRTS
+  // RAIL 4: MEN'S FORMAL SHIRTS (16)
   // ==========================================
-  {
-    id: 'shirt-white-poplin',
-    code: '01 / 04',
-    name: 'Optic White Italian Poplin Shirt',
-    tagline: 'THOMAS MASON 2-PLY COTTON',
-    category: 'formal-shirts',
-    categoryName: 'Formal Shirts',
-    price: 4199,
-    originalPrice: null,
-    rating: 5.0,
-    reviewsCount: 142,
-    isNew: true,
-    isTrending: true,
-    description: 'Tailored from crisp 120/2 Italian Thomas Mason cotton poplin with mother-of-pearl buttons, single-needle 22-stitches-per-inch tailoring, and a structured spread collar.',
-    details: [
-      { label: 'Fabric', value: '100% Italian 2-Ply Cotton Poplin' },
-      { label: 'Buttons', value: 'Australian Mother-of-Pearl' },
-      { label: 'Collar', value: 'Semi-spread structured collar' },
-      { label: 'Origin', value: 'Crafted in Milan, Italy' }
-    ],
-    sizes: ['S', 'M', 'L', 'XL'],
-    availableSizes: ['S', 'M', 'L', 'XL'],
-    colors: [
-      {
-        id: 'optic-white',
-        name: 'Optic White',
-        hex: '#FAFAFA',
-        frontImage: '/garments/shirt-white.webp',
-        backImage: '/garments/shirt-white.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'natural-oak'
-  },
-  {
-    id: 'shirt-skyblue-oxford',
-    code: '02 / 04',
-    name: 'Sky Blue Tailored Oxford Shirt',
-    tagline: 'MERCERIZED LONG-STAPLE COTTON',
-    category: 'formal-shirts',
-    categoryName: 'Formal Shirts',
-    price: 4299,
-    originalPrice: 4799,
-    rating: 4.9,
-    reviewsCount: 98,
-    isNew: true,
-    isTrending: false,
-    description: 'Refined dress Oxford woven from mercerized Egyptian cotton for a subtle lustrous finish and breathable all-day crispness.',
-    details: [
-      { label: 'Fabric', value: 'Mercerized Royal Oxford Cotton' },
-      { label: 'Fit', value: 'Modern tailored silhouette' },
-      { label: 'Origin', value: 'Crafted in Italy' }
-    ],
-    sizes: ['S', 'M', 'L', 'XL'],
-    availableSizes: ['S', 'M', 'L', 'XL'],
-    colors: [
-      {
-        id: 'sky-blue',
-        name: 'Sky Blue',
-        hex: '#A7C6E6',
-        frontImage: '/garments/shirt-skyblue.webp',
-        backImage: '/garments/shirt-skyblue.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'natural-oak'
-  },
-  {
-    id: 'shirt-pinstripe-charcoal',
-    code: '03 / 04',
-    name: 'Charcoal Pinstripe Silk-Blend Shirt',
-    tagline: 'MICRO-STRIPE EVENING TAILORING',
-    category: 'formal-shirts',
-    categoryName: 'Formal Shirts',
-    price: 5499,
-    originalPrice: null,
-    rating: 4.9,
-    reviewsCount: 67,
-    isNew: true,
-    isTrending: true,
-    description: 'Cut from a fluid silk-cotton twill woven with razor-thin tonal pinstripes. Designed for sharp suiting or untucked architectural evening wear.',
-    details: [
-      { label: 'Fabric', value: '65% Giza Cotton, 35% Mulberry Silk' },
-      { label: 'Buttons', value: 'Smoked Trocas Shell' },
-      { label: 'Origin', value: 'Crafted in Como, Italy' }
-    ],
-    sizes: ['S', 'M', 'L', 'XL'],
-    availableSizes: ['S', 'M', 'L', 'XL'],
-    colors: [
-      {
-        id: 'charcoal-stripe',
-        name: 'Charcoal Pinstripe',
-        hex: '#3A3B3F',
-        frontImage: '/garments/shirt-pinstripe.webp',
-        backImage: '/garments/shirt-pinstripe.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'dark-walnut'
-  },
-  {
-    id: 'shirt-black-obsidian',
-    code: '04 / 04',
-    name: 'Midnight Obsidian Dress Shirt',
-    tagline: 'CONCEALED PLACKET FORMAL',
-    category: 'formal-shirts',
-    categoryName: 'Formal Shirts',
-    price: 4699,
-    originalPrice: null,
-    rating: 4.8,
-    reviewsCount: 84,
-    isNew: false,
-    isTrending: true,
-    description: 'Deep jet-black formal shirt with matte tonal buttons, crisp double-stitched cuffs, and wrinkle-resistant compact poplin finish.',
-    details: [
-      { label: 'Fabric', value: '100% Compact Satin-Finish Cotton' },
-      { label: 'Fit', value: 'Tailored architectural cut' },
-      { label: 'Origin', value: 'Crafted in Portugal' }
-    ],
-    sizes: ['S', 'M', 'L', 'XL'],
-    availableSizes: ['S', 'M', 'L', 'XL'],
-    colors: [
-      {
-        id: 'obsidian-black',
-        name: 'Obsidian Black',
-        hex: '#141414',
-        frontImage: '/garments/shirt-black.webp',
-        backImage: '/garments/shirt-black.webp',
-      }
-    ],
-    defaultColorIndex: 0,
-    hangerTone: 'dark-walnut'
-  },
+  makeFormalShirt(1, 'shirt-white-poplin', 'Optic White Italian Poplin Shirt', 'THOMAS MASON 2-PLY', 4199, null, 'Optic White', '#FAFAFA', 'shirt-white.webp', '100% Italian 120/2 Poplin Cotton', 'natural-oak', true),
+  makeFormalShirt(2, 'shirt-skyblue-oxford', 'Sky Blue Tailored Oxford Shirt', 'MERCERIZED EGYPTIAN', 3999, 4499, 'Sky Blue', '#A7C6E6', 'shirt-skyblue.webp', 'Mercerized Royal Oxford Cotton', 'natural-oak', true),
+  makeFormalShirt(3, 'shirt-pinstripe-charcoal', 'Charcoal Pinstripe Silk-Blend Shirt', 'MICRO-STRIPE EVENING', 5499, null, 'Charcoal Pinstripe', '#3A3B3F', 'shirt-pinstripe.webp', '65% Giza Cotton, 35% Mulberry Silk', 'dark-walnut', true),
+  makeFormalShirt(4, 'shirt-black-obsidian', 'Midnight Obsidian Dress Shirt', 'COMPACT SATIN POPLIN', 4699, null, 'Obsidian Black', '#141414', 'shirt-black.webp', '100% Compact Satin-Finish Cotton', 'dark-walnut', true),
+  makeFormalShirt(5, 'shirt-ivory', 'Ivory Silk-Cotton Dress Shirt', 'MILANESE SPREAD COLLAR', 4599, 5199, 'Warm Ivory', '#ECE4D2', 'shirt-ivory.webp', '75% Giza Cotton, 25% Silk', 'natural-oak', false),
+  makeFormalShirt(6, 'shirt-rose', 'Powder Rose Poplin Shirt', 'TAILORED FORMAL CUT', 4199, null, 'Powder Rose', '#E2C0C6', 'shirt-rose.webp', '100% Italian 2-Ply Poplin', 'natural-oak', false),
+  makeFormalShirt(7, 'shirt-navy-twill', 'Midnight Navy Twill Dress Shirt', 'SILKY HERRINGBONE', 4499, 4999, 'Midnight Navy', '#2A3856', 'shirt-navy-twill.webp', '100% Fine Twill Cotton', 'dark-walnut', true),
+  makeFormalShirt(8, 'shirt-sage-linen', 'Sage Linen-Cotton Dress Shirt', 'BREATHABLE SUMMER TAILOR', 3899, null, 'Muted Sage', '#92A28E', 'shirt-sage-linen.webp', '55% Belgian Linen, 45% Cotton', 'natural-oak', false),
+  makeFormalShirt(9, 'shirt-burgundy', 'Burgundy Evening Poplin Shirt', 'CONCEALED PLACKET', 4699, null, 'Deep Burgundy', '#662430', 'shirt-burgundy.webp', '100% Satin-Finish Poplin', 'dark-walnut', true),
+  makeFormalShirt(10, 'shirt-espresso', 'Espresso Tailored Dress Shirt', 'ARCHITECTURAL CUFF', 4499, 4899, 'Espresso Brown', '#563E32', 'shirt-espresso.webp', '100% Italian 2-Ply Cotton', 'dark-walnut', false),
+  makeFormalShirt(11, 'shirt-mint', 'Ice Mint Crisp Poplin Shirt', 'SUMMER ATELIER EDITION', 3999, null, 'Ice Mint', '#C6DED2', 'shirt-mint.webp', '100% Long-Staple Poplin', 'natural-oak', false),
+  makeFormalShirt(12, 'shirt-sand-linen', 'Sand Linen-Silk Formal Shirt', 'RELAXED EVENING COLLAR', 4299, null, 'Warm Sand', '#CEC0A8', 'shirt-sand-linen.webp', '60% Linen, 40% Silk-Cotton', 'natural-oak', false),
+  makeFormalShirt(13, 'shirt-slate-blue', 'Slate Blue Fine Oxford Shirt', 'WRINKLE-RESISTANT WEAVE', 4099, 4599, 'Slate Blue', '#66809C', 'shirt-slate-blue.webp', 'Mercerized Royal Oxford', 'dark-walnut', false),
+  makeFormalShirt(14, 'shirt-pearl-grey', 'Pearl Grey Business Shirt', 'SHARP POINT COLLAR', 4199, null, 'Pearl Grey', '#BCC0C6', 'shirt-pearl-grey.webp', '100% Egyptian Cotton Oxford', 'natural-oak', false),
+  makeFormalShirt(15, 'shirt-navy-stripe', 'Navy Micro-Stripe Silk Shirt', 'BESPOKE BANKER STRIPE', 5299, null, 'Navy Stripe', '#384C76', 'shirt-navy-stripe.webp', '65% Giza Cotton, 35% Silk', 'dark-walnut', true),
+  makeFormalShirt(16, 'shirt-steel-herringbone', 'Steel Grey Herringbone Shirt', 'TEXTURED EVENING WEAVE', 4799, 5399, 'Steel Grey', '#76808A', 'shirt-steel-herringbone.webp', '100% Jacquard Herringbone Cotton', 'dark-walnut', false),
 
   // ==========================================
-  // ADDITIONAL ATELIER CAPSULE PIECES
+  // ATELIER STREETWEAR CAPSULE (4)
   // ==========================================
   {
     id: 'outerwear-bomber-carbon',
@@ -585,15 +213,7 @@ export const PRODUCTS = [
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     availableSizes: ['S', 'M', 'L'],
-    colors: [
-      {
-        id: 'carbon-black',
-        name: 'Carbon Black',
-        hex: '#1B1C1E',
-        frontImage: '/garments/bomber-black.webp',
-        backImage: '/garments/bomber-black.webp',
-      }
-    ],
+    colors: [{ id: 'carbon-black', name: 'Carbon Black', hex: '#1B1C1E', frontImage: '/garments/bomber-black.webp', backImage: '/garments/bomber-black.webp' }],
     defaultColorIndex: 0,
     hangerTone: 'dark-walnut'
   },
@@ -610,7 +230,7 @@ export const PRODUCTS = [
     reviewsCount: 312,
     isNew: false,
     isTrending: true,
-    description: 'The foundation of the 2027 capsule wardrobe. Stiff, architectural drape that stays crisp throughout the day. Custom tight ribbed collar that never sags.',
+    description: 'The foundation of the SOLVEN capsule wardrobe. Stiff, architectural drape that stays crisp throughout the day. Custom tight ribbed collar that never sags.',
     details: [
       { label: 'Material', value: '100% GOTS Certified Carded Cotton' },
       { label: 'Weight', value: '310 GSM Ultra-Dense Knit' },
@@ -618,15 +238,7 @@ export const PRODUCTS = [
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     availableSizes: ['S', 'M', 'L', 'XL'],
-    colors: [
-      {
-        id: 'chalk-white',
-        name: 'Pure Chalk White',
-        hex: '#F5F5F3',
-        frontImage: '/garments/tee-white.webp',
-        backImage: '/garments/tee-white.webp',
-      }
-    ],
+    colors: [{ id: 'chalk-white', name: 'Pure Chalk White', hex: '#F5F5F3', frontImage: '/garments/tee-white.webp', backImage: '/garments/tee-white.webp' }],
     defaultColorIndex: 0,
     hangerTone: 'natural-oak'
   },
@@ -651,15 +263,7 @@ export const PRODUCTS = [
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     availableSizes: ['S', 'M', 'L'],
-    colors: [
-      {
-        id: 'charcoal-wool',
-        name: 'Charcoal Shadow',
-        hex: '#2B2C30',
-        frontImage: '/garments/trousers-charcoal.webp',
-        backImage: '/garments/trousers-charcoal.webp',
-      }
-    ],
+    colors: [{ id: 'charcoal-wool', name: 'Charcoal Shadow', hex: '#2B2C30', frontImage: '/garments/trousers-charcoal.webp', backImage: '/garments/trousers-charcoal.webp' }],
     defaultColorIndex: 0,
     hangerTone: 'dark-walnut'
   },
@@ -684,15 +288,7 @@ export const PRODUCTS = [
     ],
     sizes: ['ONE SIZE'],
     availableSizes: ['ONE SIZE'],
-    colors: [
-      {
-        id: 'nero-black',
-        name: 'Nero Black',
-        hex: '#111111',
-        frontImage: '/garments/sling-black.webp',
-        backImage: '/garments/sling-black.webp',
-      }
-    ],
+    colors: [{ id: 'nero-black', name: 'Nero Black', hex: '#111111', frontImage: '/garments/sling-black.webp', backImage: '/garments/sling-black.webp' }],
     defaultColorIndex: 0,
     hangerTone: 'natural-oak'
   }
